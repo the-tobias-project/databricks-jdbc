@@ -1,0 +1,56 @@
+module load spark/3.2.1
+module load R/4.2.0
+
+library(sparklyr)
+
+config <- spark_config()
+config$`sparklyr.shell.driver-class-path` <- "/home/users/learoser/jdbc/DatabricksJDBC42.jar"
+
+# something in the configuration should be wrong
+sc <- spark_connect(master = "https://adb-587466035000722.2.azuredatabricks.net/?o=587466035000722",
+                    method = "databricks",
+                    config = config)
+
+spark_read_jdbc(sc, "tobias",   columns = c("CHR", "GENEINFO"), options = list(
+  url = "jdbc:databricks://adb-587466035000722.2.azuredatabricks.net:443/default;transportMode=http;ssl=1;httpPath=sql/protocolv1/o/587466035000722/1025-235731-iplxjnlf;AuthMech=3;UID=token;PWD={PERSONAL_ACCESS_TOKEN}",
+  dbtable = "original_table",
+  driver = "com.databricks.client.jdbc.Driver"))
+
+# https://learn.microsoft.com/en-us/azure/databricks/dev-tools/databricks-connect
+# https://www.r-bloggers.com/2020/12/advent-of-2020-day-27-connecting-azure-databricks-with-on-premise-environment/
+# all the solutions using databricks-connect
+# Error: [Databricks][JDBC](10140) Error converting value to int
+# https://community.databricks.com/s/question/0D53f00001GHVdZCAX/how-to-register-a-jdbc-spark-dialect-in-python
+
+#################
+
+connect <- function(x) {
+  driver <- RJDBC::JDBC(driverClass = "com.databricks.client.jdbc.Driver",
+                        classPath = "/home/users/learoser/jdbc/DatabricksJDBC42.jar")
+
+  conn <- DBI::dbConnect(driver,"jdbc:databricks://adb-587466035000722.2.azuredatabricks.net:443/default;transportMode=http;ssl=1;httpPath=sql/protocolv1/o/587466035000722/1025-235731-iplxjnlf;AuthMech=3;UID=token;PWD=dapifb1ceadd3292794f0b531533cad894a9")
+
+  tab <- DBI::dbReadTable(conn,'tobias.shinyapp_input')
+
+}
+
+connect <- function(location, address, port, organization, cluster, token) {
+  driver <- RJDBC::JDBC(driverClass = "com.databricks.client.jdbc.Driver",
+                        classPath = sprintf("%s/DatabricksJDBC42.jar", location))
+  conn <- DBI::dbConnect(driver,sprintf("jdbc:databricks://%s:%s/default;transportMode=http;ssl=1;httpPath=sql/protocolv1/o/%s/%s;AuthMech=3;UID=token;PWD=%s",
+                                        address, port, organization, cluster, token))
+  con
+}
+
+#############
+# brickster
+# https://zacdav-db.github.io/brickster/index.html
+
+Example of entries in .Renviron:
+
+DATABRICKS_HOST=https://xxxxxxx.cloud.databricks.com/
+DATABRICKS_TOKEN=dapi123456789012345678a9bc01234defg5
+DATABRICKS_WSID=123123123123123
+
+db_cluster_list(host = db_host(), token = db_token(), perform_request = TRUE)
+address <- "https://adb-587466035000722.2.azuredatabricks.net/?o=587466035000722#setting/clusters/1025-235731-iplxjnlf"
