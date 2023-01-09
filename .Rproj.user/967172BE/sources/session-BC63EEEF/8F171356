@@ -3,7 +3,7 @@
     "path": "~/Documents/work/stanford/loaddatabricks/R/databricks_jdbc.R",
     "project_path": "R/databricks_jdbc.R",
     "type": "r_source",
-    "hash": "3865611371",
+    "hash": "2957619068",
     "contents": "",
     "dirty": false,
     "created": 1673273808324.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "7,0",
-        "scrollLine": "0"
+        "cursorPosition": "13,4",
+        "scrollLine": "2"
     },
     "folds": "",
-    "lastKnownWriteTime": 1673274064,
+    "lastKnownWriteTime": 1673274787,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1673274064956,
+    "last_content_update": 1673274787618,
     "read_only": false,
     "read_only_alternatives": []
 }
