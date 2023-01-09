@@ -2,4 +2,4 @@
 
 ## Usage
 
-connection <- databricks_jdbc("adb-xxx.azuredatabricks.net", port = "443", organization = "xxx2", cluster = "xxx", token="xxx")
+connection <- databricks_jdbc("adb-xxxx.azuredatabricks.net", port = "443", organization = "xxxx", cluster = "xxxx", token="xxxx")
