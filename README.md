@@ -18,10 +18,18 @@ cluster: abcd
 
 Excepting the port (443), the other values were set randomly just to show an example.
 
+
+The program expects an environental variable DATABRICKS_JAR with the path to the databricks jdbc file. You can set up this in Linux as follows:
+
+```console
+export DATABRICKS_JAR=PATH_TO_YOUR_JAR_FILE
+```
+
+
 Then use the following function:
 
 
-```console
+```r
 library(loaddatabricks)
 connection <- databricks_jdbc(address="adb-xxxx.azuredatabricks.net", port = "443", organization = "xxxx", cluster = "xxxx", token="xxxx")
 ```
