@@ -26,10 +26,17 @@ export DATABRICKS_JAR=PATH_TO_YOUR_JAR_FILE
 ```
 
 
-Then use the following function:
+Then use the following function in your R session:
 
 
 ```r
 library(loaddatabricks)
 connection <- databricks_jdbc(address="adb-xxxx.azuredatabricks.net", port = "443", organization = "xxxx", cluster = "xxxx", token="xxxx")
+```
+
+
+For example you can use now:
+
+```r
+DBI::dbListTables(connection)
 ```
