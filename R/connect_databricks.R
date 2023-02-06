@@ -15,3 +15,22 @@ databricks_jdbc <- function(address, port, organization, cluster, token) {
                                   address, port, organization, cluster, token))
     con
 }
+
+
+
+#' Start cluster with ODBC
+#' @export
+
+connect_cluster <- function() {
+  con <- DBI::dbConnect(odbc::odbc(), "Databricks")
+  con
+}
+
+#' Stop cluster with ODBC
+#' @param con connection
+#' @export
+
+disconnect_cluster <- function(con) {
+  DBI::dbDisconnect(con)
+}
+
