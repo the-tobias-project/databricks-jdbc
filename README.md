@@ -1,49 +1,30 @@
-# connection module for databricks using JDBC or ODBC
+# Connection module for databricks using ODBC
 
 ## Usage
 
-This module requires five parameters: address, port, organization, cluster and token. These could be extracted from the databricks url as follows:
-
-Go to compute > cluster in databricks, and select the cluster, then collect the following field:
-
-https://adb-12345.azuredatabricks.net/?o=6789#setting/clusters/abcd/configuration
-
+This module requires a .env file (default search to your current working directory):
 
 ```
-address: adb-12345.azuredatabricks.net
-port: 443
-organization: 6789
-cluster: abcd
+DATABRICKS_HOSTNAME=
+DATABRICKS_TOKEN=
+DATABRICKS_HTTP_PATH=
+DATABRICKS_PORT=
 ```
 
-Excepting the port (443), the other values were set randomly just to show an example.
+These could be extracted from the databricks url as follows:
 
-
-The program expects an environental variable DATABRICKS_JAR with the path to the databricks jdbc file. You can set up this in Linux as follows:
-
-```console
-export DATABRICKS_JAR=PATH_TO_YOUR_JAR_FILE
-```
+Go to compute > cluster in databricks, and select the cluster, then collect the fields shown in the JDBC information at the bottom.
 
 
 Then use the following function in your R session:
 
-
 ```r
 library(loaddatabricks)
-connection <- databricks_jdbc(address="adb-xxxx.azuredatabricks.net", port = "443", organization = "xxxx", cluster = "xxxx", token="xxxx")
+con <- connect_cluster(env_file=".env") # choose a path if not env_file=".env", e.g. "/home/custom/.env"
 ```
 
-
-For example you can use now:
+And for example:
 
 ```r
-DBI::dbListTables(connection)
+dbListTables(con)
 ```
-
-
-With odbc:
-```r
-con <- connect_cluster()
-```
-
