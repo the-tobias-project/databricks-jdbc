@@ -16,8 +16,6 @@ databricks_jdbc <- function(address, port, organization, cluster, token) {
     con
 }
 
-
-
 #' Start cluster with ODBC
 #' @export
 
