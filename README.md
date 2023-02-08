@@ -1,4 +1,4 @@
-# connection module for databricks using JDBC
+# connection module for databricks using JDBC or ODBC
 
 ## Usage
 
@@ -40,3 +40,10 @@ For example you can use now:
 ```r
 DBI::dbListTables(connection)
 ```
+
+
+With odbc:
+```r
+con <- connect_cluster()
+```
+
