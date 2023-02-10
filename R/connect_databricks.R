@@ -5,6 +5,10 @@
 
 connect_cluster <- function(env_file = ".env") {
   dotenv::load_dot_env(env_file)
+  dyn.load(paste0(Sys.getenv("HOME"), "/odbc-module/driver/unixODBC-2.3.11/odbcinst/.libs/libodbcinst.so"),
+           now=TRUE)
+  dyn.load(paste0(Sys.getenv("HOME"), "/odbc-module/driver/unixODBC-2.3.11/DriverManager/.libs/libodbc.so.2"),
+                  now=TRUE)
   con <- DBI::dbConnect(odbc::odbc(), "Databricks")
   con
 }
