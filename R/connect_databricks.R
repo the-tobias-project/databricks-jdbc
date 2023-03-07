@@ -1,6 +1,8 @@
 
 #' Start cluster with ODBC
 #' @param env_file env file folder
+#' @param load_odbclibs load the odbc libraries. Default true
+#' @param odbc_module_path main path where the module is hosted. For example, is should be $HOME for individual users
 #' @export
 
 connect_cluster <- function(env_file = ".env",
