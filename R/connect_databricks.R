@@ -3,7 +3,9 @@
 #' @param env_file env file folder
 #' @export
 
-connect_cluster <- function(env_file = ".env", load_odbclibs = TRUE, odbc_module_path = Sys.getenv("HOME")) {
+connect_cluster <- function(env_file = ".env",
+                            load_odbclibs = TRUE,
+                            odbc_module_path = Sys.getenv("MODULE_FOLDER")) {
   dotenv::load_dot_env(env_file)
   if (load_odbclibs){
     dyn.load(paste0(odbc_module_path, "/odbc-module/driver/unixODBC-2.3.11/odbcinst/.libs/libodbcinst.so"),
